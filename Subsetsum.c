@@ -1,62 +1,34 @@
-// A recursive solution for subset sum problem
-#include <stdio.h>
- 
-// Returns true if there is a subset
-// of set[] with sum equal to given sum
+#include<stdio.h>
+#include<stdlib.h>
 
-bool isSubsetSum(int set[], int n, int sum)
-{
+int d,w[10],x[10],n;
 
-    // Base Cases
-
-    if (sum == 0)
-
-        return true;
-
-    if (n == 0)
-
-        return false;
- 
-
-    // If last element is greater than sum,
-
-    // then ignore it
-
-    if (set[n - 1] > sum)
-
-        return isSubsetSum(set, n - 1, sum);
- 
-
-    /* else, check if sum can be obtained by any 
-of the following:
-
-      (a) including the last element
-
-      (b) excluding the last element   */
-
-    return isSubsetSum(set, n - 1, sum)
-
-           || isSubsetSum(set, n - 1, sum - set[n - 1]);
+void sum_sets(int s,int i,int sumd){
+	int k;
+	x[i]=1;
+	if(s+w[i]==d){
+		for(k=0;k<=i;k++){
+			if(x[k]==1)
+				printf("%d ",w[k]);
+		}
+		printf("\n");
+	}else if(s+w[i]+w[i+1]<=d)
+		sum_sets(s+w[i],i+1,sumd-w[i]);
+	if(s+sumd-w[i]>=d && s+w[i]<=d){
+		x[i]=0;
+		sum_sets(s,i+1,sumd-w[i]);
+	}
 }
- 
-// Driver code
 
-int main()
-{
 
-    int set[] = { 3, 34, 4, 12, 5, 2 };
-
-    int sum = 9;
-
-    int n = sizeof(set) / sizeof(set[0]);
-
-    if (isSubsetSum(set, n, sum) == true)
-
-        printf("Found a subset with given sum");
-
-    else
-
-        printf("No subset with given sum");
-
-    return 0;
+int main(){
+	int i,sumd;
+	scanf("%d",&n);
+	for(i=0;i<n;i++){
+		scanf("%d",&w[i]);
+		sumd+=w[i];
+		x[i]=0;
+	}
+	scanf("%d",&d);
+	sum_sets(0,0,sumd);
 }
