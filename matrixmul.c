@@ -1,6 +1,6 @@
 #include<stdio.h>
 #include<limits.h> 
-int MatrixChainMultiplication(int p[], int n)
+int mm(int p[], int n)
 {
  int m[n][n];
  int i, j, k, L, q; 
@@ -35,6 +35,6 @@ int main()
  scanf("%d",&arr[i]);
  } 
  int size = sizeof(arr)/sizeof(arr[0]); 
- printf("%d ", MatrixChainMultiplication(arr, size)); 
+ printf("%d ", mm(arr, size)); 
  return 0;
 }
